@@ -1,0 +1,35 @@
+﻿@model EgzaminoProjektas.Models.PrisonerCrime
+
+@{
+    ViewData["Title"] = "Ištrinti";
+}
+
+<h1>Ištrinti</h1>
+
+<h3>Are tikrai norite ištrinti kalinio nusikaltimą?</h3>
+<div>
+    <h4>PrisonerCrime</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Crime)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Crime.Id)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Prisoner)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Prisoner.Id)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="CrimeId" />
+        <input type="hidden" asp-for="Date" />
+        <input type="hidden" asp-for="PrisonerId" />
+        <input type="submit" value="Delete" class="btn btn-danger" /> |
+        <a asp-action="Index">Grįžti atgal</a>
+    </form>
+</div>

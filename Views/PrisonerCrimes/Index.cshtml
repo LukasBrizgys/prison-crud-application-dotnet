@@ -1,0 +1,38 @@
+﻿@model List<EgzaminoProjektas.Models.PrisonerCrime>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Kalinių nusikaltimai</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.First().Crime.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.First().Prisoner.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.First().Date)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Crime.Name)
+            </td>
+            <td>
+                @item.Prisoner.GetFullName()
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date)
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

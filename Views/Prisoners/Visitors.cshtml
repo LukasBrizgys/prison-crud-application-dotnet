@@ -1,0 +1,50 @@
+﻿@model List<PrisonerVisitor>
+
+@{
+    ViewData["Title"] = "Kalinio lankytojai";
+}
+
+<h1>Kalinio lankytojai</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Lankytojo ID
+            </th>
+            <th>
+                Lankytojo vardas
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().StartDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().FinishDate)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @item.Visitor.Id
+                </td>
+                <td>
+                    @item.Visitor.GetFullName()
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StartDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FinishDate)
+                </td>
+            
+            </tr>
+        }
+    </tbody>
+</table>
+<div>
+    <a asp-action="Index">Grįžti į sąrašą</a>
+</div>

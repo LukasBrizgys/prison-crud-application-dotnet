@@ -1,0 +1,79 @@
+﻿@using EgzaminoProjektas.Repositories;
+@model IEnumerable<EgzaminoProjektas.Models.Prisoner>
+@inject IPrisonerRepository prisonerRepository
+@{
+    ViewData["Title"] = "Kaliniai";
+}
+
+<h1>Kaliniai</h1>
+<div class="d-flex gap-3">
+    <p>
+        <a asp-action="Create">Pridėti naują kalinį</a>
+    </p>
+    <p>
+        <a asp-controller="PrisonerCrimes" asp-action="Create">Pridėti kalinio nusikaltimą</a>
+    </p>
+    <p>
+        <a asp-controller="PrisonerVisitors" asp-action="Create">Pridėti kalinio lankytoją</a>
+    </p>
+</div>
+<div>
+    Iš viso kalinių: @prisonerRepository.GetTotalPrisonerCount()
+</div>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.BirthDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Phone)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Surname)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.City)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StatusId)
+            </th>
+            <th>
+                Veiksmai
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Convert.ToString(string.Format("{0:yyyy-MM-dd}", item.BirthDate))
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Phone)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Surname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.City.Name)
+            </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StatusId)
+                </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Redaguoti</a> |
+                <a asp-action="Visitors" asp-route-id="@item.Id">Peržiūrėti kalinio lankytojus</a> | 
+                <a asp-action="Crimes" asp-route-id="@item.Id">Peržiūrėti kalinio nusikaltimus</a> | 
+                <a asp-action="Delete" asp-route-id="@item.Id">Ištrinti</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

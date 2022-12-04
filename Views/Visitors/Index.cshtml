@@ -1,0 +1,42 @@
+﻿@model IEnumerable<EgzaminoProjektas.Models.Visitor>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.BirthDate)
+            </th>
+            <th>
+                Pilnas vardas
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Convert.ToString(string.Format("{0:yyyy-MM-dd}", item.BirthDate))
+            </td>
+            <td>
+                @item.GetFullName()
+            </td>
+            
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Redaguoti</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Peržiūrėti lankytojo kalinius</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Ištrinti</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
