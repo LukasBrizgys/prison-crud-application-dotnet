@@ -15,7 +15,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.FirstOrDefault().Crime.Name)
             </th>
-            <th></th>
+            <th>Veiksmai</th>
         </tr>
     </thead>
     <tbody>
@@ -28,7 +28,9 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Crime.Name)
                 </td>
-
+                <td>
+                    <a asp-controller="PrisonerCrimes" asp-action="Delete" asp-route-prisonerId="@item.PrisonerId" asp-route-crimeId="@item.CrimeId">Ištrinti kalinio nusikaltimą</a>
+                </td>
             </tr>
         }
     </tbody>

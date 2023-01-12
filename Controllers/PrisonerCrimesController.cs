@@ -76,7 +76,7 @@ namespace EgzaminoProjektas.Controllers
             {
                 await _context.Prisonercrimes.AddAsync(prisonerCrime);
                 await _prisonerCrimeRepository.Save();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Crimes", "Prisoners", new { id = prisonerCrime.PrisonerId});
             }
             
             ViewData["CrimeId"] = new SelectList(_context.Crimes, "Id", "Name", prisonerCrime.CrimeId);
@@ -146,35 +146,29 @@ namespace EgzaminoProjektas.Controllers
         }
 
         // GET: PrisonerCrimes/Delete/5
+        [Route("PrisonerCrimes/Delete/{prisonerId:long}/{crimeId:long}")]
         public async Task<IActionResult> Delete(long? prisonerId, long? crimeId)
         {
             if (prisonerId == null || crimeId == null || _context.Prisonercrimes == null)
             {
                 return NotFound();
             }
-
-            await _prisonerCrimeRepository.DeletePrisonerCrime((long) prisonerId,(long) crimeId);
-            await _prisonerCrimeRepository.Save();
-
-            return RedirectToAction(nameof(Index));
+            var prisonerCrime = await _prisonerCrimeRepository.GetPrisonerCrime((long) prisonerId,(long) crimeId);
+            return View(prisonerCrime);
         }
 
         // POST: PrisonerCrimes/Delete/5
-        [HttpPost, ActionName("Delete")]
+        [HttpPost, ActionName("Delete"), Route("PrisonerCrimes/Delete/{prisonerId:long}/{crimeId:long}")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+
+        public async Task<IActionResult> DeleteConfirmed(long? prisonerId, long? crimeId)
         {
-            if (_context.Prisonercrimes == null)
+            if (_context.Prisonercrimes == null || prisonerId == null || crimeId == null)
             {
                 return Problem("Entity set 'prisondbContext.Prisonercrimes'  is null.");
             }
-            var prisonerCrime = await _context.Prisonercrimes.FindAsync(id);
-            if (prisonerCrime != null)
-            {
-                _context.Prisonercrimes.Remove(prisonerCrime);
-            }
-            
-            await _context.SaveChangesAsync();
+            await _prisonerCrimeRepository.DeletePrisonerCrime((long) prisonerId,(long) crimeId);
+            await _prisonerCrimeRepository.Save();
             return RedirectToAction(nameof(Index));
         }
 

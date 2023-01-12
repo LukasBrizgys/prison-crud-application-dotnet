@@ -67,6 +67,11 @@ app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+app.MapControllerRoute(
+    name: "PrisonerCrime",
+    "{controller}/{action}/{prisonerId}/{crimeId}",
+    new { controller = "PrisonerCrime", action = "Delete", prisonerId = "", crimeId = "" }
+    );
 
 app.MapRazorPages();
 

@@ -1,12 +1,12 @@
 ﻿@model EgzaminoProjektas.Models.Visitor
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Sukurti lankytoją";
 }
 
-<h1>Create</h1>
+<h1>Sukurti</h1>
 
-<h4>Visitor</h4>
+<h4>Lankytoją</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -28,14 +28,14 @@
                 <span asp-validation-for="Surname" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Sukurti" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Grįžti į sąrašą</a>
 </div>
 
 @section Scripts {

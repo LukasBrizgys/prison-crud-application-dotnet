@@ -19,17 +19,16 @@ namespace EgzaminoProjektas.Repositories
         }
         public async Task<PrisonerCrime?> GetPrisonerCrime(long prisonerId, long crimeId)
         {
-            PrisonerCrime? prisonerCrime = await _context.Prisonercrimes.FindAsync(prisonerId, crimeId);
+            PrisonerCrime? prisonerCrime = _context.Prisonercrimes.Include(c => c.Crime).Include(p => p.Prisoner).First(pc => pc.PrisonerId == prisonerId && pc.CrimeId == crimeId);
             return prisonerCrime;
         }
-
         public void CreatePrisonerCrime(PrisonerCrime prisonerCrime)
         {
             _context.Add(prisonerCrime);
         }
         public async Task DeletePrisonerCrime(long prisonerId, long crimeId)
         {
-            PrisonerCrime? prisonerCrime = await _context.Prisonercrimes.FindAsync(prisonerId,crimeId);
+            PrisonerCrime? prisonerCrime = _context.Prisonercrimes.First(pc => pc.PrisonerId == prisonerId && pc.CrimeId == crimeId);
             if(prisonerCrime != null) _context.Prisonercrimes.Remove(prisonerCrime);
             
         }

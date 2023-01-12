@@ -9,6 +9,7 @@ using EgzaminoProjektas.Models;
 using EgzaminoProjektas.Repositories;
 using System.Data;
 using EgzaminoProjektas.Enums;
+using System.Security.Principal;
 
 namespace EgzaminoProjektas.Controllers
 {
@@ -16,6 +17,7 @@ namespace EgzaminoProjektas.Controllers
     {
         private readonly prisondbContext _context;
         private readonly IPrisonerRepository _prisonerRepository;
+        private readonly IPrisonerCrimeRepository _prisonerCrimeRepository;
 
         public PrisonersController(prisondbContext context)
         {
@@ -128,7 +130,7 @@ namespace EgzaminoProjektas.Controllers
                
             }
             ViewData["CityId"] = new SelectList(_context.Cities, "Id", "Name", prisoner.CityId);
-            return View(prisoner);
+            return RedirectToAction(nameof(Index));
         }
 
         // GET: Prisoners/Delete/5
